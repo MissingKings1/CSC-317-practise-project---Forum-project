@@ -9,11 +9,11 @@ Please follow the instructions below and fill in the information requested when 
 
 ## Student Information
 
-|               | Information   |
-|:-------------:|:-------------:|
-| Student Name  | name-here     |
-| Student ID    | id-here       |
-| Student Email | email-here    |
+|               | Information            |
+|:-------------:|:----------------------:|
+| Student Name  | Yongjie He             |
+| Student ID    | 917140229              |
+| Student Email | yhe11@mail.sfsu.edu    |
 
 
 
