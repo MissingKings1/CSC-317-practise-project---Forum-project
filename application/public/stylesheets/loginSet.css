@@ -1,7 +1,7 @@
 fieldset {
     width: 20%;
     height: 30%;
-    background-color: #ffffff;
+    background-color: #f8b44d;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -14,4 +14,8 @@ fieldset {
 
 .forgetPass {
     margin-left: 20%;
+}
+
+.register {
+    text-align: center;
 }
