@@ -1,6 +1,6 @@
 body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    background-image: url("resources/background.jpg");
+    background-image: url("/public/image/background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;

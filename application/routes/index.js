@@ -22,4 +22,8 @@ router.get('/viewpost', function(req, res, next) {
     res.render('viewpost');
 });
 
+router.get('/home', function(req, res, next) {
+    res.render('home');
+});
+
 module.exports = router;
