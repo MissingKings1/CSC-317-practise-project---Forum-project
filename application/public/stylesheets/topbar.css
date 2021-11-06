@@ -1,0 +1,33 @@
+.topbar {
+    top: 0px;
+    left: -5px;
+    float: left;
+    width: 100%;
+    height: 30px;
+    background-color: white;
+    border-style: ridge;
+    border-width: 5px;
+    position: fixed;
+}
+
+.topbar-text {
+    float: left;
+    font-size: 15px;
+    color: black;
+}
+
+.topbar-viewpost {
+    float: right;
+    font-size: 15px;
+    margin-right: 10%;
+    border-style: ridge;
+    border-width: 5px;
+}
+
+.topbar-login {
+    float: right;
+    font-size: 15px;
+    margin-right: 0%;
+    border-style: ridge;
+    border-width: 5px;
+}

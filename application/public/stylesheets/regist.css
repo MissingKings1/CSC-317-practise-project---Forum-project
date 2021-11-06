@@ -1,0 +1,42 @@
+.regist {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 100px;
+    border-style: ridge;
+    border-width: 5px;
+}
+
+.LoginInfor {
+    margin-top: 10px;
+    margin-left: 10%;
+    display: inline-block;
+}
+
+div.LoginInfor {
+    margin-top: 10px;
+    display: inline-block;
+}
+
+label {
+    width: 150px;
+    display: inline-block;
+}
+
+.UserInfor {
+    margin-left: 10%;
+    margin-top: 20px;
+}
+
+.submission {
+    margin-top: 30px;
+    margin-left: 10%;
+}
+
+.Cancel {
+    margin-left: 60%;
+}
+
+.error {
+    margin-left: 5px;
+    color: red;
+}
