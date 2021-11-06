@@ -1,0 +1,49 @@
+<div class="regist">
+    <div class="LoginInfor">
+        <p></p>
+        <div>
+            <label for="username"> Username: </label>
+            <input type="text" name="Username" id="Username" placeholder="please enter username">
+            <span id="s_username" class="error"></span>
+        </div>
+        <p></p>
+        <div>
+            <label for="Email"> Email: </label>
+            <input type="Email" name="Email" id="Email" placeholder="please enter Email address" required>
+        </div>
+        <p></p>
+        <div>
+            <label for="password"> Password: </label>
+            <input type="password" name="PassWord" id="Password">
+            <span id="s_password" class="error"></span>
+        </div>
+        <p></p>
+        <div>
+            <label for="passwordR"> Repeat Password: </label>
+            <input type="password" name="PassWord" id="PasswordR">
+            <span id="s_passwordR" class="error"></span>
+        </div>
+    </div>
+
+    <div class="UserInfor">
+        <div>
+            <input type=checkbox name="age" value="younger" id="age" required> I am 13 or older
+            <span id="s_age" class="error"></span>
+        </div>
+        <p></p>
+        <div>
+            <input type="checkbox" name="accept" value="TOS" id="TOS" required>I am accept to <a href="?"> TOS </a>
+            <span id="s_TOS" class="error"></span>
+        </div>
+        <p></p>
+        <div>
+            <input type="checkbox" name="accept" value="PrivacyRules" id="PrivacyRules" required>I am accept to <a
+                href="?1">privacy rules</a>
+            <span id="s_PrivacyRules" class="error"></span>
+        </div>
+    </div>
+
+    <p class="submission"><input type="submit" id="Register" onclick="return Fsumbition()" value="submit">
+        <input class="Cancel" type="submit" id="Cancel" value="Cancel">
+    </p>
+</div>
