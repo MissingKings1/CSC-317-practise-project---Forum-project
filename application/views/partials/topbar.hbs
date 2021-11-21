@@ -8,6 +8,7 @@
     <!--replace classes, show login while not user or user name if logged-->
     {{#if logged}}
     <div class="topbar-user" id = "topbar-user" onclick = "window.open('/logout','self')">
+    {{username}}
     </div>
     {{else}} 
     <div class="topbar-login" onclick = "window.open('/login','_self')"> Login </div>

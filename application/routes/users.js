@@ -9,7 +9,7 @@ var bcrypt = require('bcrypt');
 const UserError = require('../helpers/error/UserError');
 const { successPrint, errorPrint } = require("../helpers/debug/debugprinters");
 
-const { usernameValidator, passwordValidator, emailValidator, passwordConfirmValidator } = require('../middleware/resitratiaon_validator');
+const { usernameValidator, passwordValidator, passwordConfirmValidator, emailValidator } = require('../middleware/resitratiaon_validator');
 
 
 /* GET users listing. */
@@ -17,16 +17,15 @@ router.get('/', function(req, res, next) {
     res.send('respond with a resource');
 });
 
-
-router.post('/registration', usernameValidator, passwordValidator, emailValidator, passwordConfirmValidator, (req, res, next) => {
+//registration
+router.post('/registration', usernameValidator, passwordValidator, passwordConfirmValidator, emailValidator, (req, res, next) => {
     let username = req.body.username;
     let password = req.body.password;
-    let cPassword = req.body.PassWord;
     let email = req.body.email;
 
-    res.json({
+    /*res.json({
         message: "Invalid user!!!"
-    })
+    })*/
 
     /* server valiation*/
     //check username repeat
@@ -110,9 +109,9 @@ router.post('/login', (req, res, next) => {
                 req.session.username = username;
                 req.session.userId = userId;
                 res.locals.logged = true;
-                req.flash('success', 'You have been successfully logged in!!!');
+                req.flash('success', 'Welcome back,' + username);
                 req.session.save(err => {
-                    res.redirect('/');
+                    res.redirect('/home');
                 })
             } else {
                 throw new UserError("Incorrect password!", "/login", 200)
