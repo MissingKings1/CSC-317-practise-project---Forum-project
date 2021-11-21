@@ -11,14 +11,31 @@
   <link rel='stylesheet' href='/public/stylesheets/viewpost.css' />
   <link rel='stylesheet' href='/public/stylesheets/postimage.css' />
   <link rel='stylesheet' href='/public/stylesheets/topbarPlaceholder.css' />
-</head>
+  <link rel='stylesheet' href='/public/stylesheets/flashmassage.css' />
 
+  <script defer src="/public/js/flashmassage.js"></script>
+</head>
+<!--massagee at the op of all element -->
+{{#if (emptyObject messages)}}
+{{> flashmassage}}
+{{/if}}
+
+<!-- moveble topbar-->
 {{> topbarPlaceholder}}
 {{> topbar}}
 
 <body>
-  
   {{{body}}}
+
+  {{#if logged}}
+  <script>
+    document.getElementById("topbar-user").innerHTML = "username";
+  </Script>
+  {{else}}
+  <script>
+    document.getElementById("topbar-user").innerHTML = "";
+  </script>
+  {{/if}}
 </body>
 
 </html>
