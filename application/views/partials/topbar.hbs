@@ -1,10 +1,16 @@
 <div class="topbar">
-    <div class="topbar-text">topbar : Title</div>
+    <a class="topbar-text" href="/home"> <img src = "\public\favicon.ico" style = "width:70px; height:50px"> </a>
 
-    <div class="topbar-login"><a href="/login"> Login </a></div>
+    <div class="topbar-bottom" onclick = "window.open('/viewpost','_self')"> Post </div>
 
-    <div class="topbar-viewpost"><a href="/viewpost"> Post </a></div>
+    <div class="topbar-bottom" onclick = "window.open('/postimage','_self')"> New Post </div>
 
-    <div class="topbar-viewpost"><a href="/postimage"> new Post </a></div>
-
+    <!--replace classes, show login while not user or user name if logged-->
+    {{#if logged}}
+    <div class="topbar-user" id = "topbar-user" onclick = "window.open('/logout','self')">
+    {{username}}
+    </div>
+    {{else}} 
+    <div class="topbar-login" onclick = "window.open('/login','_self')"> Login </div>
+    {{/if}}
 </div>

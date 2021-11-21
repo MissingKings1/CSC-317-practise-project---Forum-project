@@ -1,24 +1,29 @@
-.posttitle {
-    border-style: ridge;
-    border-width: 5px;
+.container {
+    width: 100%;
+    height: 100%;
 }
 
-.h2 {
-    font-style: normal;
-    font-size: 20px;
+.posttitle {
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.7);
     text-align: center;
+    color: white;
+    line-height: 50px;
+}
+
+.post {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 300px;
+    margin-top: 10px;
 }
 
 .authorInfor {
-    width: 20%;
-    height: 300px;
+    width: 23%;
+    height: 100%;
     float: left;
-    margin-left: 1%;
-    margin-top: 5px;
-    background-color: #FFE4C4;
-    opacity: 1.0;
-    border-style: ridge;
-    border-width: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
 }
 
 .authorInfor p {
@@ -26,16 +31,15 @@
     margin-top: 25px;
 }
 
+.CreateTime {
+    bottom: 10px;
+}
+
 .postInfor {
-    width: calc(79% - 70px);
-    height: 300px;
-    background-color: #FFE4C4;
     float: right;
-    margin-top: 5px;
-    margin-right: 1%;
-    border-style: ridge;
-    border-color: red;
-    border-width: 5px;
+    width: 70%;
+    height: 100%;
+    margin-right: 3%;
 }
 
 .image {

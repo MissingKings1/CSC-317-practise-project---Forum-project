@@ -1,9 +1,12 @@
 .regist {
     width: 95%;
     margin-left: 2.5%;
-    margin-top: 100px;
+    margin-top: 2%;
     border-style: ridge;
     border-width: 5px;
+    border-color: transparent;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
 }
 
 .LoginInfor {
@@ -27,13 +30,27 @@ label {
     margin-top: 20px;
 }
 
-.submission {
+button {
+    height: 50px;
+    width: 20%;
     margin-top: 30px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-color: transparent;
+}
+
+button:hover {
+    background-color: rgba(255, 0, 0, 0.7);
+    font-weight: 800;
+}
+
+#Register {
     margin-left: 10%;
 }
 
-.Cancel {
-    margin-left: 60%;
+#Cancel {
+    float: right;
+    margin-right: 10%;
 }
 
 .error {

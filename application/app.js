@@ -10,6 +10,21 @@ const usersRouter = require("./routes/users");
 
 const app = express();
 
+var userName = "";
+
+//add
+const db = require('./config/database');
+
+//sessions
+var sessions = require('express-session');
+var mysqlSession = require('express-mysql-session')(sessions);
+
+//flashmassage
+var flash = require('express-flash');
+var errorPrint = require('./helpers/debug/debugprinters').errorPrint;
+var requestPrint = require('./helpers/debug/debugprinters').requestPrint;
+var successPrint = require('./helpers/debug/debugprinters').successPrint;
+
 app.engine(
     "hbs",
     handlebars({
@@ -17,9 +32,24 @@ app.engine(
         partialsDir: path.join(__dirname, "views/partials"), // where to look for partials
         extname: ".hbs", //expected file extension for handlebars files
         defaultLayout: "layout", //default layout for app, general template for all pages in app
-        helpers: {}, //adding new helpers to handlebars for extra functionality
+        helpers: {
+            emptyObject: (obj) => {
+                return !(obj.constructor === Object && Object.keys(obj).length == 0);
+            }
+        }, //adding new helpers to handlebars for extra functionality
     })
 );
+
+//session engine
+var mysqlSessionStore = new mysqlSession({ /* using default options*/ }, require("./config/database"));
+
+app.use(sessions({
+    key: "csid",
+    secret: "this is a secret from csc317 Yongjie He",
+    store: mysqlSessionStore,
+    resave: false,
+    saveUninitialized: false,
+}));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -33,6 +63,18 @@ app.use(cookieParser());
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use("/public", express.static(path.join(__dirname, "public")));
+
+//session use
+app.use((req, res, next) => {
+    console.log(req.session);
+    if (req.session.username) {
+        res.locals.logged = true;
+    }
+    next();
+})
+
+//flash
+app.use(flash());
 
 
 app.use("/", indexRouter); // route middleware from ./routes/index.js
