@@ -26,8 +26,12 @@ use command:
 
       npm install 
       
-and command :
+the command (test data include 4post, 2user, and 5 commend on post 1):
    
+      npm run buliddbEx
+      
+or empty database:
+
       npm run buliddb
       
 ## Run Instructions
