@@ -21,8 +21,8 @@ Please follow the instructions below and fill in the information requested when 
 
 ## Build Instructions
 1. cd to the path direction or use software like visual studio code to open the file
-2. use commend:
-
+2. 
+use commend:
 
       npm install 
       
@@ -32,7 +32,8 @@ and commend :
       
 ## Run Instructions
 1. cd to the path direction or use software like visual studio code to open the file
-2. use commend :
+2. 
+use commend :
 
       npm start
       
