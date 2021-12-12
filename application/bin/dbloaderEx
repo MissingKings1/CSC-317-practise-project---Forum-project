@@ -1,0 +1,202 @@
+"use strict";
+const mysql = require("mysql2/promise");
+
+function displayWarningMessage(warning) {
+    switch (warning.Code) {
+        case 1007:
+            console.log(`Skipping Database Creation --> ${warning.Message}`);
+            break;
+        case 1050:
+            console.log(`Skipping Table Creation --> ${warning.Message}`);
+            break;
+    }
+}
+
+async function getConnection() {
+    return await mysql.createConnection({
+        host: "localhost",
+        //TODO make sure to change to the user you want to use
+        user: "root", //Your DB username
+        //TODO make sure to change to the correct password for your user.
+        password: "sqlpass", //Your DB password
+    });
+}
+
+async function makeDatabase(connection) {
+    //TODO make sure to change yourdbnamehere
+    const [result, _] = await connection.query(
+        "CREATE DATABASE IF NOT EXISTS csc317db;"
+    );
+    if (result && result.warningStatus > 0) {
+        const [warningResult, _] = await connection.query("SHOW WARNINGS");
+        displayWarningMessage(warningResult[0]);
+    } else {
+        console.log("Created Database!");
+    }
+}
+
+async function makeUsersTable(connection) {
+    const [result, _] = await connection.query(
+        // Users Table SQL Goes here
+        `CREATE TABLE IF NOT EXISTS csc317db.users (
+      id INT NOT NULL AUTO_INCREMENT,
+      username VARCHAR(45) NOT NULL,
+      email VARCHAR(255) NOT NULL,
+      password VARCHAR(2048) NOT NULL,
+      createdAt DATETIME NOT NULL,
+      active INT NOT NULL DEFAULT 1,
+      PRIMARY KEY (id),
+      UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+      UNIQUE INDEX username_UNIQUE (username ASC) VISIBLE,
+      UNIQUE INDEX email_UNIQUE (email ASC) VISIBLE)
+    ENGINE = InnoDB;
+    `
+    );
+
+    if (result && result.warningStatus > 0) {
+        const [warningResult, _] = await connection.query("SHOW WARNINGS");
+        displayWarningMessage(warningResult[0]);
+    } else {
+        console.log("Created Users Table!");
+    }
+}
+
+async function makePostsTable(connection) {
+    const [result, _] = await connection.query(
+        // Posts Table SQL Goes here
+        `CREATE TABLE IF NOT EXISTS csc317db.posts (
+      id INT NOT NULL AUTO_INCREMENT,
+      title VARCHAR(128) NOT NULL,
+      description LONGTEXT NOT NULL,
+      photopath VARCHAR(2048) NOT NULL,
+      thumbnail VARCHAR(2048) NOT NULL,
+      createdAt DATETIME NOT NULL,
+      active INT NOT NULL DEFAULT 1,
+      fk_user_id INT NOT NULL,
+      PRIMARY KEY (id),
+      UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+      INDEX post_author_idx (fk_user_id ASC) VISIBLE,
+      CONSTRAINT post_author
+        FOREIGN KEY (fk_user_id)
+        REFERENCES csc317db.users (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE)
+    ENGINE = InnoDB;
+    `
+    );
+    if (result && result.warningStatus > 0) {
+        const [warningResult, _] = await connection.query("SHOW WARNINGS");
+        displayWarningMessage(warningResult[0]);
+    } else {
+        console.log("Created Posts Table!");
+    }
+}
+
+async function makeCommentsTable(connection) {
+    const [result, _] = await connection.query(
+        // Comments Table SQL Goes here
+        `CREATE TABLE IF NOT EXISTS csc317db.comments (
+        id INT NOT NULL AUTO_INCREMENT,
+        comment LONGTEXT NOT NULL,
+        fk_post_id INT NOT NULL,
+        fk_author_id INT NOT NULL,
+        created DATETIME NOT NULL,
+        PRIMARY KEY (id),
+        UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+        INDEX commend_author_idx (fk_author_id ASC) VISIBLE,
+        INDEX commend_belong_to_idx (fk_post_id ASC) VISIBLE,
+        CONSTRAINT commend_author
+            FOREIGN KEY (fk_author_id)
+            REFERENCES csc317db.users (id)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION,
+        CONSTRAINT commend_belong_to
+            FOREIGN KEY (fk_post_id)
+            REFERENCES csc317db.posts (id)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION)
+        ENGINE = InnoDB`
+    );
+    if (result && result.warningStatus > 0) {
+        const [warningResult, _] = await connection.query("SHOW WARNINGS");
+        displayWarningMessage(warningResult[0]);
+    } else {
+        console.log("Created Comments Table!");
+    }
+}
+
+
+//user data
+async function makeUsersData(connection) {
+    const [result, _] = await connection.query(
+        // Comments Table SQL Goes here
+        `INSERT INTO users VALUES (1,'a123','test@test.com','$2b$15$LgqMyydSVtHolvk29QgWWOu.aAsKue6PxqrwWuxJX6hDlK5sSlBa6','2021-12-11 20:30:53',1),
+        (2,'test2','test2@test.com','$2b$15$RDSNWWaOYzr5nL/D5OO0U.ipq3CNKCtcc4BMb7OmScG6FAyRp00v6','2021-12-11 20:49:16',1);`
+    );
+    if (result && result.warningStatus > 0) {
+        const [warningResult, _] = await connection.query("SHOW WARNINGS");
+        displayWarningMessage(warningResult[0]);
+    } else {
+        console.log("Imported Users Data!");
+    }
+}
+
+async function makePostsData(connection) {
+    const [result, _] = await connection.query(
+        // Comments Table SQL Goes here
+        `INSERT INTO posts VALUES (1,'Test post 1','Test post 1','public/image/uploads/b57cf8c0433034ecc27a41345def57c50f428f59dbbf.png','public/image/uploads/thumbnail-b57cf8c0433034ecc27a41345def57c50f428f59dbbf.png','2021-12-11 20:33:06',1,1),
+        (2,'test2','this is test 2','public/image/uploads/d79da54d76e90447e2a2dc0290848105ca5864369524.jpeg','public/image/uploads/thumbnail-d79da54d76e90447e2a2dc0290848105ca5864369524.jpeg','2021-12-11 20:49:59',1,2),
+        (3,'test 3','test 3','public/image/uploads/2e9eebbcef25ea202bbc472536178c7ad0c08ffdc336.jpeg','public/image/uploads/thumbnail-2e9eebbcef25ea202bbc472536178c7ad0c08ffdc336.jpeg','2021-12-11 20:55:12',1,2),
+        (4,'Test 4','test 4','public/image/uploads/5863d454d1f75cc03611a02bae05f7cb54ea753dbcf3.jpeg','public/image/uploads/thumbnail-5863d454d1f75cc03611a02bae05f7cb54ea753dbcf3.jpeg','2021-12-11 20:56:10',1,2);`
+    );
+    if (result && result.warningStatus > 0) {
+        const [warningResult, _] = await connection.query("SHOW WARNINGS");
+        displayWarningMessage(warningResult[0]);
+    } else {
+        console.log("Imported Posts Data!");
+    }
+}
+
+async function makeCommentsData(connection) {
+    const [result, _] = await connection.query(
+        // Comments Table SQL Goes here
+        `INSERT INTO comments VALUES (1,'Commend test 1',1,1,'2021-12-11 20:33:26'),
+        (2,'Commend test 2',1,1,'2021-12-11 20:36:26'),
+        (3,'Commend test 3',1,1,'2021-12-11 20:40:19'),
+        (4,'Commend test 4',1,1,'2021-12-11 20:43:17'),
+        (5,'Commend test 5',1,2,'2021-12-11 20:56:31');`
+    );
+    if (result && result.warningStatus > 0) {
+        const [warningResult, _] = await connection.query("SHOW WARNINGS");
+        displayWarningMessage(warningResult[0]);
+    } else {
+        console.log("Imported Comments Data!");
+    }
+}
+
+
+
+(async function main() {
+    let connection = null;
+    try {
+        connection = await getConnection();
+        await makeDatabase(connection); // make DB
+        //TODO make sure to change yourdbnamehere
+        await connection.query("USE csc317db"); // set new DB to the current DB
+        await makeUsersTable(connection); // try to make user table
+        await makePostsTable(connection); // try to make posts table
+        await makeCommentsTable(connection); // try to make comments table
+
+        //data
+        await makeUsersData(connection);
+        await makePostsData(connection);
+        await makeCommentsData(connection); // try to import comments table
+        connection.close();
+        return;
+    } catch (error) {
+        console.error(error);
+        if (connection != null) {
+            connection.close();
+        }
+    }
+})();
