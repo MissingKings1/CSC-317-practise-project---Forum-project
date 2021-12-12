@@ -18,12 +18,23 @@ Please follow the instructions below and fill in the information requested when 
 
 
 # Build/Run Instructions
-Not working yet.
 
 ## Build Instructions
-1. steps here
-2. steps here
+1. cd to the path direction or use software like visual studio code to open the file
+2. 
+use command:
 
+      npm install 
+      
+and command :
+   
+      npm run buliddb
+      
 ## Run Instructions
-1. steps here
-2. steps here 
+1. cd to the path direction or use software like visual studio code to open the file
+2. 
+use command :
+
+      npm start
+      
+3. use your browser to access http://localhost:3000/
