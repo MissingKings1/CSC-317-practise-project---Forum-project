@@ -6,15 +6,9 @@ var isLoggedIn = require('../middleware/routeprotectors').userIsLoggedIn;
 //getPost
 const { getRecentPosts, getPostById, getCommentsForPostById } = require('../middleware/posts_middleware');
 
-/* GET start page. */
+/* GET start page and home page */
 router.get('/', getRecentPosts, function(req, res, next) {
     res.render('index', { title: 'CSC 317 App', name: "Yongjie He", username: req.session.username });
-});
-
-
-//hompage
-router.get('/', function(req, res, next) {
-    res.render('home', { username: req.session.username });
 });
 
 //user
