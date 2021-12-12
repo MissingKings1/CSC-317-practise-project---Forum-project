@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "builddb": "node ./bin/dbloader",
+    "builddb": "node ./bin/dbloaderEx",
     "grade": "npm i && node ./bin/dbloader  && nodemon ./bin/www"
   },
   "dependencies": {
