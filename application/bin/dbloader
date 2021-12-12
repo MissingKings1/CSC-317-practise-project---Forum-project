@@ -67,9 +67,9 @@ async function makePostsTable(connection) {
     `CREATE TABLE IF NOT EXISTS csc317db.posts (
       id INT NOT NULL AUTO_INCREMENT,
       title VARCHAR(128) NOT NULL,
-      discription LONGTEXT NOT NULL,
+      description LONGTEXT NOT NULL,
       photopath VARCHAR(2048) NOT NULL,
-      thumbail VARCHAR(2048) NOT NULL,
+      thumbnail VARCHAR(2048) NOT NULL,
       createdAt DATETIME NOT NULL,
       active INT NOT NULL DEFAULT 1,
       fk_user_id INT NOT NULL,
@@ -95,28 +95,27 @@ async function makePostsTable(connection) {
 async function makeCommentsTable(connection) {
     const [result, _] = await connection.query(
         // Comments Table SQL Goes here
-        ` 
-    CREATE TABLE IF NOT EXISTS csc317db.commend (
-      id INT NOT NULL AUTO_INCREMENT,
-      commend LONGTEXT NOT NULL,
-      fk_post_id INT NOT NULL,
-      fk_author_id INT NOT NULL,
-      PRIMARY KEY (id),
-      UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-      INDEX commend_author_idx (fk_author_id ASC) VISIBLE,
-      INDEX commend_belong_to_idx (fk_post_id ASC) VISIBLE,
-      CONSTRAINT commend_author
-        FOREIGN KEY (fk_author_id)
-        REFERENCES csc317db.users (id)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION,
-      CONSTRAINT commend_belong_to
-        FOREIGN KEY (fk_post_id)
-        REFERENCES csc317db.posts (id)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION)
-    ENGINE = InnoDB
-    `
+        `CREATE TABLE IF NOT EXISTS csc317db.comments (
+        id INT NOT NULL AUTO_INCREMENT,
+        comment LONGTEXT NOT NULL,
+        fk_post_id INT NOT NULL,
+        fk_author_id INT NOT NULL,
+        created DATETIME NOT NULL,
+        PRIMARY KEY (id),
+        UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+        INDEX commend_author_idx (fk_author_id ASC) VISIBLE,
+        INDEX commend_belong_to_idx (fk_post_id ASC) VISIBLE,
+        CONSTRAINT commend_author
+            FOREIGN KEY (fk_author_id)
+            REFERENCES csc317db.users (id)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION,
+        CONSTRAINT commend_belong_to
+            FOREIGN KEY (fk_post_id)
+            REFERENCES csc317db.posts (id)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION)
+        ENGINE = InnoDB`
     );
     if (result && result.warningStatus > 0) {
         const [warningResult, _] = await connection.query("SHOW WARNINGS");
@@ -126,7 +125,7 @@ async function makeCommentsTable(connection) {
     }
 }
 
-(async function main() {
+async function main() {
     let connection = null;
     try {
         connection = await getConnection();
@@ -144,4 +143,4 @@ async function makeCommentsTable(connection) {
             connection.close();
         }
     }
-})();
+}();

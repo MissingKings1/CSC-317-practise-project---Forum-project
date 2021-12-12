@@ -1,22 +1,103 @@
-<div class = "container">
+<div class="post-container">
 
     <div class="posttitle">
-        <div><h2>Title</h2></div>
+        <div>
+            <h2>{{currentPost.title}}</h2>
+        </div>
     </div>
 
-    <div class = "post">
+    <div class="post-main">
         <div class="authorInfor">
             <section>
-                <p class="authour">Author: Author Infor</p>
+                <p class="authour">Author: {{currentPost.username}}</p>
             </section>
-            <section >
-                <p class="CreateTime"> Creation time: Time</p>
+            <section>
+                <p class="CreateTime"> Creation time: {{currentPost.createdAt}}</p>
             </section>
         </div>
 
         <div class="postInfor">
-            <section><img class="image" src="/public\image\exampleP.jpg" alt="example image"></section>
+            <div id="post-description" class="lead">{{currentPost.description}}</div>
+            <section><img class="post-image" src="/{{currentPost.photopath}}" alt="image"></section>
         </div>
     </div>
 
+    {{#each currentPost.comments}}
+    {{> comment this}}
+    {{/each}}
+
+    <div id="comment-maker">
+        {{#if logged}}
+        <textarea id="comment-maker-text" class="form-control" aria-label="with textarea"
+            placeholder="Enter Comment Here!"></textarea>
+        <!--<span id="comment-maker-botton" class="input-group-text">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-square-fill" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.411.9 2.533a1 1 0 0 0 1.6 011.9-2.533a1
+                1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+            </svg>
+        </span>-->
+        <button id="comment-maker-botton"> Comment </button>
+
+        {{else}}
+        Please login before making a comment
+        {{/if}}
+    </div>
+
+
 </div>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('span[class=date-posted]').forEach((postedDate) => {
+            postedDate.textContent = new Date(postedDate.textContent).toLocaleDateString();
+        });
+    });
+
+    //replaced by reflash mode in onclick event
+    /*function addMessage(data) {
+        let template = document.createElement('template');
+        template.innerHTML =
+            `<div id="message-{${data.commentId}">
+        <strong class="author-text"> @${data.username} </strong>
+         <span class="date-posted"> ${new Date().toLocaleDateString()}</span>
+        <div class="comment-text">${data.comment} </div>
+         </div>`;
+        document.getElementById('messages').firstChild.before(template.content.firstChild);
+    }*/
+
+    document.getElementById('comment-maker-botton').onclick = (event) => {
+        let commentText = document.getElementById('comment-maker-text').value;
+        let postId = document.location.pathname.match(/\d+/g).map(Number)[0];
+
+        if (!commentText) {
+            return;
+        }
+
+        let fetchOptions = {
+            method: "POST",
+            headers: {
+                "Content-Type": "Application/json"
+            },
+            body: JSON.stringify({
+                comment: commentText,
+                postId, postId
+            })
+        }
+        fetch('/comments/create', fetchOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.code == 1) {
+                    addMessage(data);
+                } else {
+                    addFlashFromFrontEnd(data.message, data.status);
+                }
+            })
+            .catch(err => console.log(err));
+
+        location.reload();
+    }
+
+</script>

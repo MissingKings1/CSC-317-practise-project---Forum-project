@@ -111,7 +111,7 @@ router.post('/login', (req, res, next) => {
                 res.locals.logged = true;
                 req.flash('success', 'Welcome back,' + username);
                 req.session.save(err => {
-                    res.redirect('/home');
+                    res.redirect('/');
                 })
             } else {
                 throw new UserError("Incorrect password!", "/login", 200)

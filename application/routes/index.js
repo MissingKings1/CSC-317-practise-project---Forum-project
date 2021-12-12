@@ -3,17 +3,21 @@ var router = express.Router();
 
 var isLoggedIn = require('../middleware/routeprotectors').userIsLoggedIn;
 
+//getPost
+const { getRecentPosts, getPostById, getCommentsForPostById } = require('../middleware/posts_middleware');
+
 /* GET start page. */
-router.get('/', function(req, res, next) {
-    res.render('index', { title: 'CSC 317 App', name: "Yongjie He" });
+router.get('/', getRecentPosts, function(req, res, next) {
+    res.render('index', { title: 'CSC 317 App', name: "Yongjie He", username: req.session.username });
 });
 
+
 //hompage
-router.get('/home', function(req, res, next) {
+router.get('/', function(req, res, next) {
     res.render('home', { username: req.session.username });
 });
 
-//subpages
+//user
 router.get('/login', function(req, res, next) {
     res.render('login');
 });
@@ -22,6 +26,8 @@ router.get('/registration', function(req, res, next) {
     res.render('registration');
 });
 
+
+//subpages
 router.get('/viewpost', function(req, res, next) {
     res.render('viewpost', { username: req.session.username });
 });
@@ -47,6 +53,10 @@ router.get('/logout', function(req, res, next) {
     //reflash page
     res.redirect(req.get('referer'));
     res.flash("success", "You is logged out");
+});
+
+router.get("/post/:id(\\d+)", getPostById, getCommentsForPostById, (req, res, next) => {
+    res.render('viewpost', { title: `Post ${req.params.id}`, username: req.session.username });
 });
 
 module.exports = router;
