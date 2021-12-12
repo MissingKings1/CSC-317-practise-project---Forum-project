@@ -187,10 +187,6 @@ async function makeCommentsData(connection) {
     await makePostsTable(connection); // try to make posts table
     await makeCommentsTable(connection); // try to make comments table
 
-    //data
-    await makeUsersData(connection);
-    await makePostsData(connection);
-    await makeCommentsData(connection); // try to import comments table
     connection.close();
     return;
   } catch (error) {
