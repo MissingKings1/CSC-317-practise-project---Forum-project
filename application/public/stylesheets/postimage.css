@@ -21,16 +21,11 @@
     height: 20px;
 }
 
-.mid textarea {
+.description {
     margin-left: 5%;
     resize: none;
     width: 90%;
     height: 200px;
-}
-
-#Description {
-    height: 100 px;
-    width: 100 px;
 }
 
 .submition {

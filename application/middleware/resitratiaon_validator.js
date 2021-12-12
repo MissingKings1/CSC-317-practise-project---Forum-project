@@ -37,7 +37,7 @@ const passwordValidator = (req, res, next) => {
 const passwordConfirmValidator = (req, res, next) => {
     let passWord = req.body.passWord;
     let password = req.body.password;
-    if (passWord == password) {
+    if (passWord != password) {
         req.flash('error', "Two password different!!!");
         req.session.save(err => {
             res.redirect('/registration');

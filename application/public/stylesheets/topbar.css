@@ -41,7 +41,7 @@
 }
 
 .topbar-login {
-    width: 200px;
+    width: 100px;
     display: block;
 }
 
@@ -70,4 +70,25 @@
     /*link*/
     text-decoration: none;
     color: white;
+}
+
+.topbar-search {
+    width: 400px;
+    margin-right: 10px;
+    margin-top: -50px;
+}
+
+.topbar-search:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#search-text {
+    width: 250px;
+}
+
+#search-button {
+    width: 100px;
+    margin-right: 5px;
+    margin-top: -5px;
+    background-color: rgba(255, 0, 0, 0.8);
 }

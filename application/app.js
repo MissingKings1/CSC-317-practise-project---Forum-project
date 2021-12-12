@@ -1,14 +1,18 @@
-const createError = require("http-errors");
-const express = require("express");
-const favicon = require('serve-favicon');
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
-const handlebars = require("express-handlebars");
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+var createError = require("http-errors");
+var express = require("express");
+var favicon = require('serve-favicon');
+var path = require("path");
+var cookieParser = require("cookie-parser");
+var logger = require("morgan");
+var handlebars = require("express-handlebars");
 
-const app = express();
+//Router
+var indexRouter = require("./routes/index");
+var usersRouter = require("./routes/users");
+var postsRouter = require("./routes/posts");
+var commentRouter = require('./routes/comments');
+
+var app = express();
 
 var userName = "";
 
@@ -79,6 +83,8 @@ app.use(flash());
 
 app.use("/", indexRouter); // route middleware from ./routes/index.js
 app.use("/users", usersRouter); // route middleware from ./routes/users.js
+app.use("/posts", postsRouter); // route middleware from ./routes/post.js
+app.use("/comments", commentRouter);
 
 
 /**

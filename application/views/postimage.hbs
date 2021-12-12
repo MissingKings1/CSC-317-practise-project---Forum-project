@@ -1,10 +1,10 @@
-<form class="post" action="postimage.html" method="get">
+<form class="post" method="POST" enctype="multipart/form-data" action='/posts/createPost' >
     <div class="mid">
         <div>
             <p>Title:</p>
-            <input class="title" type="text" name="Title" required="required">
-            <p>Description:</p> <textarea id="Description"></textarea>
-            <p>Upload image: &nbsp <input type="file" value="Upload Image" accept="image/*">
+            <input class="title" type="text" name="title" required="required">
+            <p>Description:</p> <input class="description" type="textarea" name="description" required="required"></textarea>
+            <p>Upload image: &nbsp <input name = "uploadImage" type="file" value="Upload Image" accept="image/*" required>
             <p>
             <p><input type="checkbox" name="accept" value="PrivacyRules">I am accept to&nbsp<a href="?2"> Acceptable
                     Use Policy</a></p>

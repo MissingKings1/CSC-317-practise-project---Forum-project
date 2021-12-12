@@ -111,7 +111,7 @@ router.post('/login', (req, res, next) => {
                 res.locals.logged = true;
                 req.flash('success', 'Welcome back,' + username);
                 req.session.save(err => {
-                    res.redirect('/home');
+                    res.redirect('/');
                 })
             } else {
                 throw new UserError("Incorrect password!", "/login", 200)
@@ -141,6 +141,7 @@ router.post('/logout', (req, res, next) => {
             res.json({ status: "OK", message: "uers is logged out" });
         }
     });
+    setTimeout(() => { location.reload(); }, 500);
 });
 
 module.exports = router;

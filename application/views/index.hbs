@@ -1,3 +1,39 @@
-<h1>{{title}}</h1>
-<p>Hello {{ name }},Welcome to {{title}}</p>
-<a href="/home" > home</a>
+<div id="main-content">
+    {{#each results}}
+        {{> card this}}
+    {{/each}}
+</div>
+
+{{!-- functions is moved to frontend.js
+<script> 
+    function createCard(data) {
+    let CardHTML = `<div id="post-${data.id}" class="card">
+                        <img class="card-image" src= "${data.thumbnail}" alt="Missing Image">
+                        <div class="card-body">
+                            <p class="card-title">${data.title}</p>
+                            <p class="card-text">${data.description}</p>
+                            <a href="/post/${data.id}" class="anchor-buttons">Post Deatails</a>
+                        </div>
+                    </div>`;
+    
+    return CardHTML;
+}
+
+let ele = document.getElementById('main-content');
+fetch('http://localhost:3000/postmgnt/getrecEight')
+    .then((data) => {
+        return data.json();
+    })
+    .then((json_data) => {
+        rows = json_data;
+        let HTMLtoAdd = '';
+        row.forEach(element=> {
+            HtMLtoAdd += createCard(element);
+        });
+        ele.innerHTML = HTMLtoAdd;
+    })
+    .catch((err) =>{
+        throw err;
+    })
+</script> 
+--}}
