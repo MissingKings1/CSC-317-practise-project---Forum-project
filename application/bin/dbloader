@@ -125,22 +125,22 @@ async function makeCommentsTable(connection) {
     }
 }
 
-async function main() {
-    let connection = null;
-    try {
-        connection = await getConnection();
-        await makeDatabase(connection); // make DB
-        //TODO make sure to change yourdbnamehere
-        await connection.query("USE csc317db"); // set new DB to the current DB
-        await makeUsersTable(connection); // try to make user table
-        await makePostsTable(connection); // try to make posts table
-        await makeCommentsTable(connection); // try to make comments table
-        connection.close();
-        return;
-    } catch (error) {
-        console.error(error);
-        if (connection != null) {
-            connection.close();
-        }
+(async function main() {
+  let connection = null;
+  try {
+    connection = await getConnection();
+    await makeDatabase(connection); // make DB
+    //TODO make sure to change yourdbnamehere
+    await connection.query("USE csc317db"); // set new DB to the current DB
+    await makeUsersTable(connection); // try to make user table
+    await makePostsTable(connection); // try to make posts table
+    await makeCommentsTable(connection); // try to make comments table
+    connection.close();
+    return;
+  } catch (error) {
+    console.error(error);
+    if (connection != null) {
+      connection.close();
     }
-}();
+  }
+})();

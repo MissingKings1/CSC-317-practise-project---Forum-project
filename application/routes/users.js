@@ -141,6 +141,7 @@ router.post('/logout', (req, res, next) => {
             res.json({ status: "OK", message: "uers is logged out" });
         }
     });
+    setTimeout(() => { location.reload(); }, 500);
 });
 
 module.exports = router;
